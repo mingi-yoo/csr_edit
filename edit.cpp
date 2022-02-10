@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
 	string l(argv[1]);
 	string o_name = l.substr(0, l.length() - 4);
 
-	if (f.open()) {
+	if (f.is_open()) {
 		string line, temp;
 
 		getline(f, line);
@@ -45,10 +45,10 @@ int main(int argc, char** argv) {
 			int start = row_ptr[i];
 			int end = row_ptr[i+1];
 
-			if (start-end > 25)
+			if (end - start > 25)
 				end = start + 25;
 
-			accum += (start - end);
+			accum += (end - start);
 			new_row_ptr.push_back(accum);
 
 			for (int j = start; j < end; j++)
@@ -58,7 +58,7 @@ int main(int argc, char** argv) {
 	}
 	else {
 		// Edit for GINConv
-		for (iont i = 0; i < row_ptr.size() - 1; i++) {
+		for (int i = 0; i < row_ptr.size() - 1; i++) {
 			int start = row_ptr[i];
 			int end = row_ptr[i+1];
 
@@ -78,10 +78,10 @@ int main(int argc, char** argv) {
 				new_col_idx.push_back(i);
 			}
 
-			if (!alread_exist)
-				accum += (start - end) + 1;
+			if (!already_exist)
+				accum += (end - start) + 1;
 			else
-				accum += (start - end);
+				accum += (end - start);
 
 			new_row_ptr.push_back(accum);
 		}
